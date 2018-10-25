@@ -10,34 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="101dp">
-
-        <Button
-            android:id="@+id/installBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/runBtn"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="124dp"
-            android:text="Install" />
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
             android:id="@+id/runBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="156dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
             android:text="Connect!" />
+
+        <Button
+            android:id="@+id/installBtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/runBtn"
+            android:layout_marginTop="25dp"
+            android:text="Install" />
 
         <TextView
             android:id="@+id/showText"
-            android:layout_width="500dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_below="@id/installBtn"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="7dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

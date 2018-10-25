@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -108,23 +110,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case FILE_SELECT_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     FILE_PATH = getPath(MainActivity.this, uri, sd_name);
                     showText.setText("Installing....");
-                   // installApk(MainActivity.this, FILE_PATH);
-                    runOnUiThread(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            showText.setText(installApk(MainActivity.this, FILE_PATH));
+                            installApk(MainActivity.this, FILE_PATH);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showText.setText("Success!");
+                                }
+                            });
                         }
-                    });
+                    }).start();
                 }
                 break;
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static String getPath(final Context context, final Uri uri, String sd_name) {
