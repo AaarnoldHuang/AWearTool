@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <item
+            android:id="@+id/installFragment2"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Install" />
+        <item
+            android:id="@+id/screenFragment2"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Screen Tool" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tools" />
+
+</menu>
