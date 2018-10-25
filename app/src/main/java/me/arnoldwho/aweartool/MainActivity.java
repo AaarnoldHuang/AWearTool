@@ -28,6 +28,12 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,15 +49,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,6 +57,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        NavController navController = Navigation.findNavController(this, R.id.my_nav_host_fragment);
+        NavigationUI.setupWithNavController(navigationView, navController);
         ADBPATH = this.getFilesDir().getAbsolutePath() + File.separator;
         firstStart();
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -119,9 +118,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_install) {
+        if (id == R.id.installFragment2) {
 
-        } else if (id == R.id.nav_screen) {
+        } else if (id == R.id.screenFragment2) {
 
         } else if (id == R.id.nav_manage) {
 

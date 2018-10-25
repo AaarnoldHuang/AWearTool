@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,10 @@ import android.widget.TextView;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,6 +55,16 @@ public class InstallFragment extends Fragment {
         ADBPATH = view.getContext().getFilesDir().getAbsolutePath() + File.separator;
         sd_name = getExtendedMemoryPath(view.getContext());
 
+        runBtm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String openNetworkDebug = "su -c setprop service.adb.tcp.port 5555 && stop adbd && start adbd";
+                String myCMD = "su -c cd " + ADBPATH + " && ./arnold connect 127.0.0.1:5555 && ./arnold devices";
+                runCmd.runCMD(openNetworkDebug);
+                showText.setText(runCmd.runCMD(myCMD));
+            }
+        });
+
         installBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,16 +73,6 @@ public class InstallFragment extends Fragment {
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), FILE_SELECT_CODE);
-            }
-        });
-
-        runBtm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String openNetworkDebug = "su -c setprop service.adb.tcp.port 5555 && stop adbd && start adbd";
-                String myCMD = "su -c cd " + ADBPATH + " && ./arnold connect 127.0.0.1:5555 && ./arnold devices";
-                runCmd.runCMD(openNetworkDebug);
-                showText.setText(runCmd.runCMD(myCMD));
             }
         });
         return view;
@@ -157,7 +162,5 @@ public class InstallFragment extends Fragment {
         }
         return null;
     }
-
-
 
 }

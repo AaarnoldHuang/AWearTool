@@ -3,15 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/installFragment">
+    app:startDestination="@id/installFragment2">
 
     <fragment
-        android:id="@+id/installFragment"
+        android:id="@+id/installFragment2"
         android:name="me.arnoldwho.aweartool.InstallFragment"
         android:label="fragment_install"
-        tools:layout="@layout/fragment_install" />
+        tools:layout="@layout/fragment_install" >
+        <action
+            android:id="@+id/action_installFragment2_to_screenFragment2"
+            app:destination="@id/screenFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/screenFragment2"
+        android:name="me.arnoldwho.aweartool.ScreenFragment"
+        android:label="fragment_screen"
+        tools:layout="@layout/fragment_screen" />
     <activity
-        android:id="@+id/mainActivity"
+        android:id="@+id/mainActivity2"
         android:name="me.arnoldwho.aweartool.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
