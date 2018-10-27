@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.arnoldwho.aweartool">
+    package="me.arnoldwho.aweartool"
+    android:versionCode="2"
+    android:versionName="0.2">
 
     <application
         android:allowBackup="true"
