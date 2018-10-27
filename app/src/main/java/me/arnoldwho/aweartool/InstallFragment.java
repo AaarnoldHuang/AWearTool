@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.support.design.widget.NavigationView;
@@ -36,32 +39,25 @@ public class InstallFragment extends Fragment {
     private String FILE_PATH;
     private TextView showText;
     private View view;
+    MyHandler myHandler;
 
-    MyIO myIO = new MyIO();
     RunCmd runCmd = new RunCmd();
-
-    public InstallFragment() {
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_install, container, false);
         Button installBtn = (Button) view.findViewById(R.id.installBtn);
         final Button runBtm = (Button) view.findViewById(R.id.runBtn);
         showText = (TextView) view.findViewById(R.id.showText);
         ADBPATH = view.getContext().getFilesDir().getAbsolutePath() + File.separator;
         sd_name = getExtendedMemoryPath(view.getContext());
-
         runBtm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String openNetworkDebug = "su -c setprop service.adb.tcp.port 5555 && stop adbd && start adbd";
-                String myCMD = "su -c cd " + ADBPATH + " && ./arnold connect 127.0.0.1:5555 && ./arnold devices";
-                runCmd.runCMD(openNetworkDebug);
-                showText.setText(runCmd.runCMD(myCMD));
+                runCmd.runCMD("su -c setprop service.adb.tcp.port 5555 && stop adbd && start adbd");
+                runCmd.runCMD("su -c cd " + ADBPATH + " && ./arnold connect 127.0.0.1:5555");
+                showText.setText(runCmd.runCMD("su -c cd " + ADBPATH + " && ./arnold devices"));
             }
         });
 
@@ -75,7 +71,24 @@ public class InstallFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), FILE_SELECT_CODE);
             }
         });
+
+       myHandler = new MyHandler();
+
         return view;
+    }
+
+    class MyHandler extends Handler {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    showText.setText("Success!");
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
 
     public String Connect() {
@@ -100,6 +113,9 @@ public class InstallFragment extends Fragment {
                         @Override
                         public void run() {
                             installApk(FILE_PATH);
+                            Message msg = new Message();
+                            msg.what = 0;
+                            myHandler.sendMessage(msg);
                         }
                     }).start();
                 }

@@ -6,6 +6,9 @@
     <string name="nav_header_subtitle">A tool help use your watch better!</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="connect_btn">CONNECT!</string>
+    <string name="install_btn">INSTALL!</string>
+    <string name="screencap_btn">ScreenCap</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

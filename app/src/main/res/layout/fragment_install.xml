@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:text="Connect!" />
+            android:text="@string/connect_btn" />
 
         <Button
             android:id="@+id/installBtn"
@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/runBtn"
             android:layout_marginTop="25dp"
-            android:text="Install" />
+            android:text="@string/install_btn" />
 
         <TextView
             android:id="@+id/showText"
